@@ -1,0 +1,515 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BNA-EMI · W12</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --surface:#ffffff; --text:#1f2933; --muted:#5f6b7a; --border:#dde3ea;
+    --blue:#1d4ed8; --red:#c62828; --greenline:#2e9e44;
+    --yellow:#fff1a0; --green:#c3f5bb; --accent:#1d4ed8;
+    --shadow:0 2px 10px rgba(0,0,0,.06);
+  }
+  [data-theme="dark"]{
+    --bg:#11151c; --surface:#1a202a; --text:#e6e9ee; --muted:#9aa5b4; --border:#2c3442;
+    --blue:#7aa2ff; --red:#ff8080; --greenline:#5fd07a;
+    --yellow:#5a5020; --green:#1f4d2a; --accent:#7aa2ff;
+    --shadow:0 2px 10px rgba(0,0,0,.45);
+  }
+  /* Language switching: hide the language that is not selected */
+  html[lang="en"] [data-l="zh"], html[lang="zh-Hant"] [data-l="en"]{display:none !important}
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);line-height:1.7;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    transition:background .2s,color .2s}
+  a{color:var(--accent)}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+  /* Header */
+  .topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:.75rem;height:58px;
+    padding:0 1rem;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+  .brand{flex:1;min-width:0;font-weight:700;color:var(--text);text-decoration:none;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .actions{display:flex;gap:.5rem}
+  .btn{background:transparent;border:1px solid var(--border);color:var(--text);border-radius:8px;
+    height:38px;min-width:38px;padding:0 .7rem;font:inherit;font-size:1rem;cursor:pointer}
+  .btn:hover{background:var(--bg)}
+
+  /* Side menu */
+  .drawer{position:fixed;top:0;left:0;bottom:0;width:min(300px,85vw);z-index:50;overflow-y:auto;
+    background:var(--surface);border-right:1px solid var(--border);box-shadow:var(--shadow);
+    transform:translateX(-100%);visibility:hidden;transition:transform .25s ease,visibility .25s}
+  .drawer.open{transform:none;visibility:visible}
+  .drawer-head{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;
+    border-bottom:1px solid var(--border);font-weight:700}
+  .drawer ul{list-style:none;margin:0;padding:.5rem}
+  .drawer a{display:flex;gap:.7rem;align-items:center;padding:.7rem .8rem;border-radius:8px;
+    color:var(--text);text-decoration:none}
+  .drawer a:hover{background:var(--bg)}
+  .drawer a[aria-current="page"]{background:var(--accent);color:var(--surface)}
+  .num{display:inline-grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;
+    border:1.5px solid currentColor;font-size:.85rem;flex-shrink:0}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40}
+
+  /* Content */
+  main{max-width:900px;margin:0 auto;padding:1.5rem 1rem 1rem}
+  .page h1{font-size:clamp(1.4rem,4vw,2rem);line-height:1.3;margin:.3rem 0 .4rem}
+  .sub{color:var(--muted);margin-top:0}
+  .card{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--blue);
+    border-radius:12px;padding:1rem 1.2rem;margin:1rem 0;box-shadow:var(--shadow)}
+  .card.red{border-left-color:var(--red)}
+  .card.green{border-left-color:var(--greenline)}
+  .card h2{font-size:1.15rem;margin:.2rem 0 .6rem}
+  mark{color:inherit;padding:0 .25em;border-radius:4px}
+  mark.y{background:var(--yellow)} mark.g{background:var(--green)}
+  .t-blue{color:var(--blue);font-weight:600} .t-red{color:var(--red);font-weight:600}
+  .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin:1rem 0}
+  .flow a{display:block;padding:1rem;border-radius:12px;background:var(--surface);border:1px solid var(--border);
+    color:var(--text);text-decoration:none;box-shadow:var(--shadow)}
+  .flow a:hover{border-color:var(--accent)}
+  .flow strong{display:block;font-size:1.05rem}
+  .flow small{color:var(--muted)}
+  .chain{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem}
+  .chip{padding:.2rem .75rem;border:1px solid var(--border);border-radius:999px;background:var(--bg)}
+  .arrow{color:var(--muted);font-weight:700}
+  .table-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:420px}
+  th,td{border:1px solid var(--border);padding:.55rem .75rem;text-align:left;vertical-align:top}
+  th{background:var(--bg)}
+  ol li,ul li{margin-bottom:.35rem}
+  .diagram{display:block;width:100%;max-width:620px;height:auto;margin:.5rem auto;color:var(--blue)}
+  .diagram text{fill:currentColor;font-size:17px;font-family:inherit}
+
+  /* Previous / Top / Next */
+  .pager{display:grid;grid-template-columns:1fr auto 1fr;gap:.6rem;max-width:900px;margin:0 auto;padding:.5rem 1rem 2rem}
+  .pager a,.pager button{padding:.7rem .9rem;border-radius:10px;border:1px solid var(--border);
+    background:var(--surface);color:var(--text);text-decoration:none;font:inherit;cursor:pointer;box-shadow:var(--shadow)}
+  .pager a:hover,.pager button:hover{border-color:var(--accent)}
+  .pager .next{text-align:right}
+  .pager small{display:block;color:var(--muted);font-size:.8rem}
+  .pager .empty{visibility:hidden}
+  @media (max-width:560px){
+    .pager{grid-template-columns:1fr 1fr}
+    .pager .top{grid-column:1 / -1;order:3}
+  }
+
+  /* Footer */
+  footer{border-top:1px solid var(--border);background:var(--surface);color:var(--muted);
+    text-align:center;padding:1.2rem 1rem;font-size:.9rem}
+  footer p{margin:.2rem 0}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="topbar">
+  <button id="menuBtn" class="btn" aria-label="Menu / 選單" aria-expanded="false" aria-controls="drawer">☰</button>
+  <a href="#/home" class="brand">
+    <span data-l="en">BNA-EMI · W12 Notes</span><span data-l="zh">BNA-EMI・第 12 週筆記</span>
+  </a>
+  <div class="actions">
+    <button id="langBtn" class="btn" aria-label="Switch language / 切換語言">中文</button>
+    <button id="themeBtn" class="btn" aria-label="Dark or light mode / 深色或淺色模式">🌙</button>
+  </div>
+</header>
+
+<!-- ===== SIDE MENU ===== -->
+<nav id="drawer" class="drawer" aria-label="Modules">
+  <div class="drawer-head">
+    <span><span data-l="en">Modules</span><span data-l="zh">單元</span></span>
+    <button id="closeBtn" class="btn" aria-label="Close / 關閉">✕</button>
+  </div>
+  <ul id="menuList"></ul>
+</nav>
+<div id="overlay" class="overlay" hidden></div>
+
+<main>
+
+<!-- ===== PAGE 0: OVERVIEW ===== -->
+<section class="page" id="page-home">
+  <h1><span data-l="en">1151 · W12 · BNA-EMI (Business Needs Analysis)</span><span data-l="zh">1151・第 12 週・BNA-EMI（商業需求分析）</span></h1>
+  <p class="sub"><span data-l="en">Academic year 115, term 1, week 12</span><span data-l="zh">115 學年度第 1 學期，第 12 週</span></p>
+
+  <div class="card">
+    <h2><span data-l="en">The big picture</span><span data-l="zh">整體架構</span></h2>
+    <p data-l="en">Analyse a problem → turn the result into a product (MVP) → use AI tools to build it → deliver it as a single-page web app.</p>
+    <p data-l="zh">分析問題 → 將結果轉化為產品（MVP）→ 運用 AI 工具建置 → 以單頁式網頁應用程式交付。</p>
+    <div class="flow">
+      <a href="#/analyse"><strong>① <span data-l="en">Analyse</span><span data-l="zh">分析</span></strong><small><span data-l="en">Mind map</span><span data-l="zh">心智圖</span></small></a>
+      <a href="#/product"><strong>② <span data-l="en">Define the product</span><span data-l="zh">定義產品</span></strong><small>PRD, MVP</small></a>
+      <a href="#/build"><strong>③ <span data-l="en">Build with AI</span><span data-l="zh">運用 AI 建置</span></strong><small><span data-l="en">.md files</span><span data-l="zh">.md 檔案</span></small></a>
+      <a href="#/deliver"><strong>④ <span data-l="en">Deliver</span><span data-l="zh">交付成果</span></strong><small><span data-l="en">SPA webpage</span><span data-l="zh">SPA 網頁</span></small></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span data-l="en">Colour key of the original note</span><span data-l="zh">原始筆記的顏色說明</span></h2>
+    <ul>
+      <li><span class="t-blue">●</span> <span data-l="en">Blue = concepts and theory</span><span data-l="zh">藍色＝概念與理論</span></li>
+      <li><span class="t-red">●</span> <span data-l="en">Red = practical workflow and outputs</span><span data-l="zh">紅色＝實作流程與產出</span></li>
+      <li><mark class="y"><span data-l="en">Yellow highlight</span><span data-l="zh">黃色螢光</span></mark> <span data-l="en">= key terms</span><span data-l="zh">＝關鍵詞</span></li>
+      <li><mark class="g"><span data-l="en">Green highlight</span><span data-l="zh">綠色螢光</span></mark> <span data-l="en">= final web deliverable</span><span data-l="zh">＝最終網頁成果</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== PAGE 1: ANALYSE ===== -->
+<section class="page" id="page-analyse" hidden>
+  <h1>① <span data-l="en">Analyse the Need</span><span data-l="zh">分析需求</span></h1>
+  <p class="sub"><span data-l="en">How to think about a problem</span><span data-l="zh">如何思考一個問題</span></p>
+
+  <div class="card">
+    <h2><span data-l="en">Three steps</span><span data-l="zh">三個步驟</span></h2>
+    <ol>
+      <li data-l="en"><strong>Separate</strong> the topic into its parts (Σ parts / Σ components): the <strong>problem</strong>, the <strong>demand</strong>, the <strong>questions</strong>.</li>
+      <li data-l="zh"><strong>拆解</strong>：將主題拆成各個部分（Σ 部分／Σ 元件）：<strong>問題</strong>、<strong>需求</strong>、<strong>提問</strong>。</li>
+      <li data-l="en"><strong>Investigate deeply, with evidence</strong> (e.g., real examples).</li>
+      <li data-l="zh"><strong>深入探究，並以證據佐證</strong>（例如：真實案例）。</li>
+      <li data-l="en"><strong>Recombine</strong> the parts and find the <strong>potential relationships</strong> ★ between them.</li>
+      <li data-l="zh"><strong>重組</strong>：將各部分重新組合，找出彼此之間的<strong>潛在關聯</strong> ★。</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2><span data-l="en">Result: a Coggle mind map</span><span data-l="zh">成果：Coggle 心智圖</span></h2>
+    <div class="chain">
+      <span class="chip"><span data-l="en">Systematic</span><span data-l="zh">系統化</span></span>
+      <span class="chip"><span data-l="en">Structured</span><span data-l="zh">結構化</span></span>
+      <span class="chip"><span data-l="en">Process-oriented</span><span data-l="zh">流程導向</span></span>
+    </div>
+    <p data-l="en">A new representation of the information → <strong>insights</strong>.</p>
+    <p data-l="zh">以新的方式呈現資訊 → 帶來<strong>洞見</strong>。</p>
+  </div>
+
+  <div class="card">
+    <h2><span data-l="en">Effective vs. efficient</span><span data-l="zh">有效 vs. 效率</span></h2>
+    <div class="table-wrap"><table>
+      <tr><th></th><th><span data-l="en">Term</span><span data-l="zh">名詞</span></th><th><span data-l="en">Meaning</span><span data-l="zh">意義</span></th></tr>
+      <tr><td>✅</td><td><span data-l="en">Effective</span><span data-l="zh">有效（Effective）</span></td><td><span data-l="en">The goal or purpose is reached. This is the focus.</span><span data-l="zh">達成目標或目的。這是重點。</span></td></tr>
+      <tr><td>❌</td><td><span data-l="en">Efficient</span><span data-l="zh">效率（Efficient）</span></td><td><span data-l="en">More output for less input. Not the priority.</span><span data-l="zh">以較少投入換取較多產出。並非優先。</span></td></tr>
+    </table></div>
+  </div>
+
+  <div class="card red">
+    <h2><span data-l="en">Style</span><span data-l="zh">風格</span></h2>
+    <div class="chain">
+      <span class="chip"><span data-l="en">Simple</span><span data-l="zh">簡單</span></span>
+      <span class="chip"><span data-l="en">Clear</span><span data-l="zh">清楚</span></span>
+      <span class="chip"><span data-l="en">Light</span><span data-l="zh">輕盈</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PAGE 2: PRODUCT ===== -->
+<section class="page" id="page-product" hidden>
+  <h1>② <span data-l="en">Define the Product</span><span data-l="zh">定義產品</span></h1>
+  <p class="sub"><span data-l="en">What to build</span><span data-l="zh">要做出什麼</span></p>
+
+  <div class="card red">
+    <h2><span data-l="en">From demand to product</span><span data-l="zh">從需求到產品</span></h2>
+    <div class="chain">
+      <span class="chip"><span data-l="en">Demand</span><span data-l="zh">需求</span></span><span class="arrow">→</span>
+      <span class="chip">PRD</span><span class="arrow">→</span>
+      <span class="chip"><span data-l="en">Product</span><span data-l="zh">產品</span></span><span class="arrow">←</span>
+      <span class="chip"><span data-l="en">Supply</span><span data-l="zh">供給</span></span>
+    </div>
+    <p data-l="en"><strong>PRD</strong> = Product Requirement Document. The product needs <strong>functions</strong> (what it does) and <strong>verifications</strong> (how you check it works).</p>
+    <p data-l="zh"><strong>PRD</strong>＝產品需求文件。產品需要<strong>功能</strong>（做什麼）與<strong>驗證</strong>（如何確認它可行）。</p>
+  </div>
+
+  <div class="card">
+    <h2><span data-l="en">BNA Agent and the product</span><span data-l="zh">BNA Agent 與產品</span></h2>
+    <div class="chain">
+      <mark class="y">BNA Agent</mark><span class="arrow">⇒</span>
+      <mark class="g"><span data-l="en">webpage / website</span><span data-l="zh">網頁／網站</span></mark><span class="arrow">→</span>
+      <span class="chip"><span data-l="en">service</span><span data-l="zh">服務</span></span>
+    </div>
+    <p data-l="en"><mark class="y">"TP" = Product</mark> in software form: software / app / application.</p>
+    <p data-l="zh"><mark class="y">「TP」＝產品</mark>，以軟體形式呈現：軟體／App／應用程式。</p>
+  </div>
+
+  <div class="card">
+    <h2><mark class="y">MVP</mark> = <span data-l="en">Minimum Viable Product</span><span data-l="zh">最小可行產品</span></h2>
+    <ul data-l="en">
+      <li>Can be <strong>commercialised and transacted</strong> (bought and sold)</li>
+      <li>Has <strong>value</strong> people are <strong>willing to pay</strong> for (WTP)</li>
+      <li>Serves a <strong>target audience</strong> (TA)</li>
+    </ul>
+    <ul data-l="zh">
+      <li>能夠<strong>商業化並進行交易</strong>（可買賣）</li>
+      <li>具有使用者<strong>願意付費</strong>的<strong>價值</strong>（WTP）</li>
+      <li>服務特定的<strong>目標客群</strong>（TA）</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span data-l="en">Market model</span><span data-l="zh">市場模型</span></h2>
+    <svg class="diagram" viewBox="0 0 620 270" role="img" aria-label="Market model / 市場模型">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <g fill="none" stroke="currentColor" stroke-width="2.5">
+        <ellipse cx="310" cy="135" rx="65" ry="50"/>
+        <path d="M150 135 L240 135" marker-end="url(#ah)"/>
+        <path d="M470 135 L380 135" marker-end="url(#ah)"/>
+        <path d="M120 105 Q310 0 500 105" marker-end="url(#ah)"/>
+        <path d="M500 165 Q310 270 120 165" marker-end="url(#ah)"/>
+      </g>
+      <text x="310" y="141" text-anchor="middle" data-l="en">Market</text>
+      <text x="310" y="141" text-anchor="middle" data-l="zh">市場</text>
+      <text x="75" y="141" text-anchor="middle" data-l="en">Producers</text>
+      <text x="75" y="141" text-anchor="middle" data-l="zh">生產者</text>
+      <text x="545" y="141" text-anchor="middle" data-l="en">Consumers</text>
+      <text x="545" y="141" text-anchor="middle" data-l="zh">消費者</text>
+      <text x="310" y="40" text-anchor="middle" data-l="en">Product</text>
+      <text x="310" y="40" text-anchor="middle" data-l="zh">產品</text>
+      <text x="310" y="245" text-anchor="middle" data-l="en">$ money</text>
+      <text x="310" y="245" text-anchor="middle" data-l="zh">$ 金錢</text>
+    </svg>
+    <p data-l="en">Producers deliver the product to consumers through the market; money flows back to the producers.</p>
+    <p data-l="zh">生產者透過市場將產品提供給消費者；金錢則回流到生產者。</p>
+  </div>
+</section>
+
+<!-- ===== PAGE 3: BUILD WITH AI ===== -->
+<section class="page" id="page-build" hidden>
+  <h1>③ <span data-l="en">Build with AI</span><span data-l="zh">運用 AI 建置</span></h1>
+  <p class="sub"><span data-l="en">How to build it</span><span data-l="zh">如何做出來</span></p>
+
+  <div class="card red">
+    <h2><span data-l="en">AI tools</span><span data-l="zh">AI 工具</span></h2>
+    <div class="chain">
+      <mark class="y"><span data-l="en">Chatbot</span><span data-l="zh">聊天機器人</span></mark>
+      <mark class="y"><span data-l="en">Task agent</span><span data-l="zh">任務代理</span></mark>
+      <mark class="y"><span data-l="en">Coding agent</span><span data-l="zh">程式代理</span></mark>
+    </div>
+  </div>
+
+  <div class="card red">
+    <h2><span data-l="en">Types of in-class notes</span><span data-l="zh">課堂筆記的類型</span></h2>
+    <ul data-l="en"><li>Handwritten notes</li><li>Voice recordings</li><li>Video</li><li>Images / pictures</li></ul>
+    <ul data-l="zh"><li>手寫筆記</li><li>錄音</li><li>錄影</li><li>圖片／照片</li></ul>
+  </div>
+
+  <div class="card red">
+    <h2><span data-l="en">Process</span><span data-l="zh">流程</span></h2>
+    <div class="chain">
+      <span class="chip"><span data-l="en">Discussion / consultancy</span><span data-l="zh">討論／諮詢</span></span><span class="arrow">→</span>
+      <span class="chip"><span data-l="en">Analysis</span><span data-l="zh">分析</span></span><span class="arrow">→</span>
+      <span class="chip"><span data-l="en">Summary</span><span data-l="zh">摘要</span></span><span class="arrow">=</span>
+      <mark class="y"><span data-l="en">.md (Markdown) file</span><span data-l="zh">.md（Markdown）檔</span></mark><span class="arrow">→</span>
+      <span class="chip"><span data-l="en">Document</span><span data-l="zh">文件</span></span>
+    </div>
+  </div>
+
+  <div class="card red">
+    <h2><span data-l="en">Files to produce</span><span data-l="zh">要產出的檔案</span></h2>
+    <div class="table-wrap"><table>
+      <tr><th><span data-l="en">File</span><span data-l="zh">檔案</span></th><th><span data-l="en">Role</span><span data-l="zh">用途</span></th></tr>
+      <tr><td>KB.md</td><td><span data-l="en">Knowledge base</span><span data-l="zh">知識庫</span></td></tr>
+      <tr><td>Hand-off.md</td><td><span data-l="en">❓ Purpose to confirm (possibly instructions for the coding agent)</span><span data-l="zh">❓ 用途待確認（可能是給程式代理的指示）</span></td></tr>
+      <tr><td>PRD.md</td><td><span data-l="en">Product requirements (links back to the PRD in ②)</span><span data-l="zh">產品需求（對應 ② 的 PRD）</span></td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ===== PAGE 4: DELIVER ===== -->
+<section class="page" id="page-deliver" hidden>
+  <h1>④ <span data-l="en">Deliver</span><span data-l="zh">交付成果</span></h1>
+  <p class="sub"><span data-l="en">The final product</span><span data-l="zh">最終成果</span></p>
+
+  <div class="card green">
+    <h2><mark class="g">SPA</mark> = <span data-l="en">Single-Page Application</span><span data-l="zh">單頁式應用程式</span></h2>
+    <p data-l="en">One webpage (<strong>.html</strong> file) whose content changes without loading new pages. It is the final product of the <strong>BNA Agent</strong>.</p>
+    <p data-l="zh">只有一個網頁（<strong>.html</strong> 檔），切換內容時不需要重新載入頁面。這是 <strong>BNA Agent</strong> 的最終成果。</p>
+    <p data-l="en">💡 This website is itself an example of an SPA.</p>
+    <p data-l="zh">💡 本網站本身就是一個 SPA 範例。</p>
+  </div>
+
+  <div class="card">
+    <h2><mark class="y">SVG</mark> <span data-l="en">vs. PNG / JPEG</span><span data-l="zh">vs. PNG／JPEG</span></h2>
+    <p data-l="en"><strong>SVG</strong> (scalable vector graphics) stays sharp at any size. <strong>PNG / JPEG</strong> images become blurry when enlarged.</p>
+    <p data-l="zh"><strong>SVG</strong>（可縮放向量圖形）放大縮小都清晰；<strong>PNG／JPEG</strong> 圖片放大後會變模糊。</p>
+  </div>
+</section>
+
+<!-- ===== PAGE 5: CONNECTIONS ===== -->
+<section class="page" id="page-links" hidden>
+  <h1>⑤ <span data-l="en">Connections &amp; To Confirm</span><span data-l="zh">關聯與待確認</span></h1>
+  <p class="sub"><span data-l="en">How the parts of the note link together</span><span data-l="zh">筆記各部分如何彼此連結</span></p>
+
+  <div class="card">
+    <h2><span data-l="en">Connections across the note</span><span data-l="zh">筆記中的關聯</span></h2>
+    <ul data-l="en">
+      <li><strong>PRD</strong> (top) ↔ <strong>PRD.md</strong> (bottom): the same idea, turned into a file</li>
+      <li><strong>MVP's "Product"</strong> ↔ the <strong>market diagram</strong>: one word connects both ideas</li>
+      <li><mark class="g">Webpage ↔ SPA ↔ app (.html)</mark>: all describe the final deliverable</li>
+      <li><strong>Analyse → summarise</strong> with the mind map ↔ <strong>analysis → summary</strong> with AI: the same thinking, with AI tools</li>
+    </ul>
+    <ul data-l="zh">
+      <li><strong>PRD</strong>（上方）↔ <strong>PRD.md</strong>（下方）：同一概念，化為實際檔案</li>
+      <li><strong>MVP 的「產品」</strong>↔ <strong>市場圖</strong>：一個詞串起兩個概念</li>
+      <li><mark class="g">網頁 ↔ SPA ↔ app（.html）</mark>：皆指最終成果</li>
+      <li>以心智圖<strong>分析 → 摘要</strong> ↔ 以 AI <strong>分析 → 摘要</strong>：相同的思考方式，改用 AI 工具</li>
+    </ul>
+  </div>
+
+  <div class="card red">
+    <h2><span data-l="en">To confirm with the teacher</span><span data-l="zh">待與老師確認</span></h2>
+    <ul>
+      <li><span data-l="en">What <strong>Hand-off.md</strong> is for</span><span data-l="zh"><strong>Hand-off.md</strong> 的用途</span></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== PREVIOUS / TOP / NEXT ===== -->
+<nav id="pager" class="pager" aria-label="Page navigation"></nav>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p><span data-l="en">Architect: <span id="fArchitect"></span></span><span data-l="zh">架構設計：駱世民 教授</span></p>
+  <p><span data-l="en">Version</span><span data-l="zh">版本</span> <span id="fVersion"></span></p>
+  <p>© <span id="fYear"></span> <span id="fHolder"></span>. <span data-l="en">All rights reserved.</span><span data-l="zh">版權所有，保留一切權利。</span></p>
+</footer>
+
+<script>
+(function () {
+  /* ====== EDIT HERE: footer information ====== */
+  const CONFIG = {
+    architect: "Prof. Shihmin Lo",
+    version: "1.0.0",
+    copyrightHolder: "Your Name",   /* <-- put your name here, keep the quotation marks */
+    year: 2026
+  };
+
+  /* ====== Pages (order = menu order and previous/next order) ====== */
+  const PAGES = [
+    { id: "home",    n: "0", en: "Overview",                 zh: "總覽" },
+    { id: "analyse", n: "1", en: "Analyse the Need",         zh: "分析需求" },
+    { id: "product", n: "2", en: "Define the Product",       zh: "定義產品" },
+    { id: "build",   n: "3", en: "Build with AI",            zh: "運用 AI 建置" },
+    { id: "deliver", n: "4", en: "Deliver",                  zh: "交付成果" },
+    { id: "links",   n: "5", en: "Connections & To Confirm", zh: "關聯與待確認" }
+  ];
+
+  const $ = (s) => document.querySelector(s);
+  const root = document.documentElement;
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  const esc = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const label = (p) => `<span data-l="en">${esc(p.en)}</span><span data-l="zh">${esc(p.zh)}</span>`;
+  let current = PAGES[0];
+
+  /* Footer */
+  $("#fArchitect").textContent = CONFIG.architect;
+  $("#fVersion").textContent = CONFIG.version;
+  $("#fYear").textContent = CONFIG.year;
+  $("#fHolder").textContent = CONFIG.copyrightHolder;
+
+  /* Language */
+  function updateTitle() {
+    document.title = (root.lang === "en" ? current.en : current.zh) + " · BNA-EMI W12";
+  }
+  function setLang(lang) {
+    root.lang = lang;
+    store.set("lang", lang);
+    $("#langBtn").textContent = lang === "en" ? "中文" : "EN";
+    updateTitle();
+  }
+  $("#langBtn").addEventListener("click", () => setLang(root.lang === "en" ? "zh-Hant" : "en"));
+
+  /* Dark / light */
+  function setTheme(t) {
+    root.dataset.theme = t;
+    store.set("theme", t);
+    $("#themeBtn").textContent = t === "dark" ? "☀️" : "🌙";
+  }
+  $("#themeBtn").addEventListener("click", () => setTheme(root.dataset.theme === "dark" ? "light" : "dark"));
+
+  /* Side menu (closed by default) */
+  const drawer = $("#drawer"), overlay = $("#overlay"), menuBtn = $("#menuBtn");
+  $("#menuList").innerHTML = PAGES.map(p =>
+    `<li><a href="#/${p.id}" data-id="${p.id}"><span class="num">${p.n}</span>${label(p)}</a></li>`
+  ).join("");
+  function openMenu() {
+    drawer.classList.add("open"); overlay.hidden = false;
+    menuBtn.setAttribute("aria-expanded", "true");
+    $("#closeBtn").focus();
+  }
+  function closeMenu() {
+    drawer.classList.remove("open"); overlay.hidden = true;
+    menuBtn.setAttribute("aria-expanded", "false");
+  }
+  menuBtn.addEventListener("click", () => drawer.classList.contains("open") ? closeMenu() : openMenu());
+  $("#closeBtn").addEventListener("click", closeMenu);
+  overlay.addEventListener("click", closeMenu);
+  $("#menuList").addEventListener("click", (e) => { if (e.target.closest("a")) closeMenu(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
+
+  /* Show the right page */
+  function render() {
+    const id = location.hash.replace(/^#\/?/, "");
+    current = PAGES.find(p => p.id === id) || PAGES[0];
+
+    document.querySelectorAll(".page").forEach(s => { s.hidden = s.id !== "page-" + current.id; });
+    document.querySelectorAll("#menuList a").forEach(a => {
+      if (a.dataset.id === current.id) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+
+    const i = PAGES.indexOf(current), prev = PAGES[i - 1], next = PAGES[i + 1];
+    $("#pager").innerHTML =
+      (prev
+        ? `<a class="prev" href="#/${prev.id}"><small><span data-l="en">← Previous</span><span data-l="zh">← 上一頁</span></small>${label(prev)}</a>`
+        : `<span class="empty"></span>`) +
+      `<button class="top" type="button" id="topBtn">↑ <span data-l="en">Back to top</span><span data-l="zh">回到頂端</span></button>` +
+      (next
+        ? `<a class="next" href="#/${next.id}"><small><span data-l="en">Next →</span><span data-l="zh">下一頁 →</span></small>${label(next)}</a>`
+        : `<span class="empty"></span>`);
+    $("#topBtn").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    window.scrollTo(0, 0);
+    updateTitle();
+  }
+  window.addEventListener("hashchange", render);
+
+  /* Start */
+  setTheme(store.get("theme") ||
+    (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+  setLang(store.get("lang") ||
+    ((navigator.language || "").toLowerCase().startsWith("zh") ? "zh-Hant" : "en"));
+  render();
+})();
+</script>
+</body>
+</html>
+
+							<script>
+                            	
+							</script>
+                        </body>
+                        </html>
+                    
